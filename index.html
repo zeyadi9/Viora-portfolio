@@ -1,758 +1,611 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@headlessui/react@1.7.16/dist/headlessui.umd.min.js"></script> -->
+    <title>Viora Digital - Building Digital Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <title>Portfolio - Zeyad Yasser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        viora: {
+                            50: '#f0f4ff',
+                            100: '#e0e9fe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#0f172a',
+                            950: '#0b0f19',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
         }
-        
-        @keyframes slideInFromTop {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        @keyframes slideInFromBottom {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .gradient-border {
+            position: relative;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 1rem;
         }
-        
-        @keyframes slideInFromLeft {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 1.05rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), rgba(129, 140, 248, 0.1), rgba(192, 132, 252, 0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
-        
-        @keyframes slideInFromRight {
-            from { transform: translateX(50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .glass-nav {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
         }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        .animate-fade-in {
-            animation: fadeIn 1s ease-in-out;
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
         }
-        
-        .animate-slide-top {
-            animation: slideInFromTop 0.8s ease-out;
-        }
-        
-        .animate-slide-bottom {
-            animation: slideInFromBottom 0.8s ease-out;
-        }
-        
-        .animate-slide-left {
-            animation: slideInFromLeft 0.8s ease-out;
-        }
-        
-        .animate-slide-right {
-            animation: slideInFromRight 0.8s ease-out;
-        }
-        
-        .animate-pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        .blob {
-            animation: blob-animation 10s infinite alternate;
-        }
-        
-        @keyframes blob-animation {
-            0% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
-            50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
-            100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
-        }
-        
-        .skill-bar-fill {
-            transition: width 1.5s ease-in-out;
-        }
-        
-        .hover-grow {
-            transition: transform 0.3s ease;
-        }
-        
-        .hover-grow:hover {
-            transform: scale(1.03);
-        }
-        
-        .btn-hover-effect {
-            transition: all 0.3s ease;
-            background-size: 200% auto;
-        }
-        
-        .btn-hover-effect:hover {
-            background-position: right center;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-
-        /* Mobile specific styles */
-        @media (max-width: 1023px) {
-            .mobile-logo {
-                display: flex;
-                justify-content: center;
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-            }
-            .mobile-logo img {
-                height: 120px;
-                width: auto;
-            }
-            .mobile-content {
-                padding-top: 1rem;
-            }
-            
-            /* Ensure mobile menu button is visible */
-            .mobile-menu-button {
-                display: inline-flex !important;
-                z-index: 50;
-            }
-            
-            /* Mobile menu styles */
-            #mobile-menu {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 40;
-                display: none;
-            }
-            
-            #mobile-menu.active {
-                display: block;
-            }
-            
-            #mobile-menu-content {
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 80%;
-                max-width: 300px;
-                height: 100%;
-                background-color: white;
-                padding: 1rem;
-                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                overflow-y: auto;
-            }
-            
-            #mobile-menu.active #mobile-menu-content {
-                transform: translateX(0);
-            }
-            
-            .mobile-menu-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid #eee;
-                margin-bottom: 1rem;
-            }
-            
-            .mobile-menu-links {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .mobile-menu-links a {
-                padding: 0.75rem 1rem;
-                border-radius: 0.5rem;
-                color: #333;
-                font-weight: 500;
-            }
-            
-            .mobile-menu-links a:hover {
-                background-color: #f5f5f5;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            #mobile-menu {
-                display: none !important;
-            }
-        }
-        </style>
+    </style>
 </head>
 <body class="overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 inset-x-0 z-50 glass-nav border-b border-slate-800/60">
+        <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="./viora-logo.jpeg" alt="Viora Digital Logo" class="h-12 w-auto rounded-lg shadow-lg border border-slate-700/50">
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold tracking-wider text-white">VIORA <span class="text-sky-400">DIGITAL</span></span>
+                    <span class="text-[10px] text-slate-400 tracking-widest -mt-1 font-semibold">BUILDING DIGITAL SOLUTIONS</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                <a href="#about" class="hover:text-sky-400 transition-colors">عن فايورا</a>
+                <a href="#services" class="hover:text-sky-400 transition-colors">خدماتنا</a>
+                <a href="#projects" class="hover:text-sky-400 transition-colors">مشاريعنا</a>
+                <a href="#contact" class="hover:text-sky-400 transition-colors">تواصل معنا</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-semibold text-sm shadow-lg hover:shadow-sky-500/25 hover:scale-105 transition-all">
+                    ابدأ مشروعك معنا
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 space-y-3">
+            <a href="#about" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">عن فايورا</a>
+            <a href="#services" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">خدماتنا</a>
+            <a href="#projects" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">مشاريعنا</a>
+            <a href="#contact" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">تواصل معنا</a>
+            <a href="#contact" class="inline-block mt-2 px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold">ابدأ مشروعك</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden">
+        <!-- Background Glowing Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <!-- Badge -->
+            <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/60 mb-8 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                <span class="text-xs font-semibold text-sky-300">Viora Digital Solutions</span>
+            </div>
+
+            <h1 data-aos="fade-up" class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                نحول أفكارك إلى <br class="hidden sm:inline">
+                <span class="gradient-text">حلول رقمية مبتكرة وتطبيقات ذكية</span>
+            </h1>
+
+            <p data-aos="fade-up" data-aos-delay="100" class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400 leading-relaxed mb-10">
+                فريق **Viora Digital** متخصص في بناء الأنظمة الإدارية الشاملة، المنصات التعليمية، تطبيقات الويب المستندة للذكاء الاصطناعي، والمواقع البرمجية المتكاملة لرفع كفاءة أعمالك.
+            </p>
+
+            <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#projects" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold shadow-xl shadow-sky-500/20 hover:scale-105 transition-all">
+                    استعرض مشاريعنا
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-bold hover:bg-slate-800 hover:border-slate-600 transition-all">
+                    تواصل مع الفريق
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-900/40 relative border-t border-slate-800/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">مجالات خبرتنا وخدماتنا</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">نقدم مجموعة واسعة من الخدمات البرمجية والحلول الرقمية التي تناسب احتياجات الشركات والمؤسسات.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="gradient-border p-6 relative group card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">تطوير تطبيقات الويب</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">بناء مواقع وتطبيقات تفاعلية عالية السلاسة والأداء باستخدام أحدث التقنيات البرمجية.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="gradient-border p-6 relative group card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">أنظمة إدارة الشركات ERP</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">تطوير أنظمة إدارية متكاملة لـ الموارد البشرية، الفنادق، المستشفيات، والمؤسسات التعليمية.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="gradient-border p-6 relative group card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-1.372a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">حلول الذكاء الاصطناعي AI</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">دمج تقنيات الرؤية الحاسوبية (Computer Vision) وبصمة الوجه للتحكم وإدارة الحضور والانصراف.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="gradient-border p-6 relative group card-hover">
+                    <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">المنصات التفاعلية والسياحية</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">أنظمة حجز متطورة، منصات سياحية، ومواقع تعليمية وتدريبية ذات تجربة مستخدم متميزة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16" data-aos="fade-up">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">معرض أعمال <span class="gradient-text">Viora</span></h2>
+                    <p class="text-slate-400 text-lg">مجموعة من أبرز المشاريع التي قمنا بتطويرها وتشغيلها بنجاح.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="text-sky-400 font-semibold text-sm">إجمالي المشاريع: 9 مشاريع مكتملة</span>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Live Featured Project 1: Campass -->
+                <div data-aos="zoom-in" data-aos-delay="100" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold border border-sky-500/30">مشروع حي Live 🚀</span>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">AI & Face ID</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-sky-400 transition-colors">Campass - إدارة القاعات والطلاب</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            منصة متكاملة لإدارة وتنظيم القاعات وتسهيل وصول الطلاب للمقررات والماتريال، مزودة بنظام تسجيل الحضور والانصراف الذكي بواسطة بصمة الوجه والذكاء الاصطناعي.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Artificial Intelligence</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Face Recognition</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Campus Management</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://campass.ifree.page/homepage.php" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold text-sm shadow-lg hover:shadow-sky-500/30 transition-all">
+                            زيارة الموقع الحي
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Live Featured Project 2: Egiptura -->
+                <div data-aos="zoom-in" data-aos-delay="150" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30">مشروع حي Live 🚀</span>
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">منصة سياحية</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">Egiptura - إيجيبتورا للسياحة</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            منصة سياحية متخصصة لاكتشاف المعالم والوجهات السياحية والرحلات في مصر بتصميم عصري وتجربة تفاعلية متميزة للزوار.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Tourism Platform</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Booking & Travel</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Web App</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://egiptura.com/" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm shadow-lg hover:shadow-emerald-500/30 transition-all">
+                            زيارة الموقع الحي
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 1: HMS Graduation Project -->
+                <div data-aos="zoom-in" data-aos-delay="200" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold">نظام إداري</span>
+                            <span class="text-xs text-slate-400">Graduation Project</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">HMS - Hospital Management System</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            مشروع التخرج المتقدم لإدارة المستشفيات والمراكز الطبية شامل السجلات والروشتات والتخصصات والحجوزات.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">MySQL</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Healthcare ERP</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/zeyadi9/HMS_Graduation_project" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
+                            عرض على GitHub
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 2: Hotel Reservation System -->
+                <div data-aos="zoom-in" data-aos-delay="250" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">حجوزات وإدارة</span>
+                            <span class="text-xs text-slate-400">Hotel System</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">Hotel Reservation System</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            نظام متكامل لحجز الفنادق يسمح للعملاء بالبحث والغرف، ويوفر لوحة للغرف والأسعار في الوقت الفعلي.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Tailwind CSS</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Booking Engine</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/zeyadi9/Hotel-Reservation-System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
+                            عرض على GitHub
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 3: HR System -->
+                <div data-aos="zoom-in" data-aos-delay="300" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-semibold">إدارة شركات</span>
+                            <span class="text-xs text-slate-400">HR Solution</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">HR Management System</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            نظام متكامل لإدارة الموارد البشرية، متابعة الموظفين، الرواتب، والإجازات وتقارير أداء العمل.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Employee Management</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Payroll</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/zeyadi9/HR_System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
+                            عرض على GitHub
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 4: Real Estate System -->
+                <div data-aos="zoom-in" data-aos-delay="350" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold">منصة عقارات</span>
+                            <span class="text-xs text-slate-400">Real Estate</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-rose-400 transition-colors">Real Estate Platform</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            منصة لإدارة واستعراض الوحدات العقارية، التواصل مع الملاك، وتنظيم عمليات العرض والطلب.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Property Listing</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Real Estate</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/zeyadi9/Real_state" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
+                            عرض على GitHub
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 5: Student Training -->
+                <div data-aos="zoom-in" data-aos-delay="400" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-semibold">منصة تعليمية</span>
+                            <span class="text-xs text-slate-400">Student Training</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Manage Student Training</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            نظام متابعة وتدريب الطلاب لتنظيم المهام، متابعة الأداء، والتقييم الدوري للتدريب الميداني.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">HTML5</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Training System</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Education</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/zeyadi9/Manage_Student_Training" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
+                            عرض على GitHub
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 6: Children Speech Problems -->
+                <div data-aos="zoom-in" data-aos-delay="450" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">تفاعلي / ذوي الهمم</span>
+                            <span class="text-xs text-slate-400">Interactive App</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Children Speech Problems</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            منصة تعليمية وتفاعلية تهدف لمساعدة الأطفال ومراكز التخاطب على علاج وصعوبات الكلام عبر أنشطة مرئية وصوتية.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">JavaScript</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Interactive UI</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Speech Therapy</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto flex gap-2">
+                        <a href="https://zeyad4a.github.io/Children_speech_problems/" target="_blank" class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs text-center transition-all">
+                            معاينة Demo
+                        </a>
+                        <a href="https://github.com/zeyadi9/Children_speech_problems" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 7: Online Training Platform -->
+                <div data-aos="zoom-in" data-aos-delay="500" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold">تدريب أولاين</span>
+                            <span class="text-xs text-slate-400">Fitness App</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">Online Training Platform</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            موقع تدريب لياقة بدنية ورياضة عبر الإنترنت لتقديم الجداول والتمارين والخطط الغذائية بشكل مميز.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">HTML5</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">CSS3</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Fitness</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto flex gap-2">
+                        <a href="https://zeyad4a.github.io/Onlin-Trining-Css-Html/" target="_blank" class="flex-1 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold text-xs text-center transition-all">
+                            معاينة Demo
+                        </a>
+                        <a href="https://github.com/zeyadi9/Onlin-Trining-Css-Html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Viora Section -->
+    <section id="about" class="py-20 bg-slate-900/60 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <span class="text-sky-400 font-bold text-sm tracking-wider uppercase">لماذا Viora Digital؟</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 leading-tight">
+                        شريكك البرمجي الموثوق لبناء المستقبل الرقمي
+                    </h2>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        نحن في **Viora Digital** نجمع بين الخبرة العميقة في تطوير البرمجيات، تصميم واجهات المستخدم الجذابة، ودمج تقنيات الذكاء الاصطناعي لتوفير حلول برمجية مخصصة بالكامل تضمن لك التميز وسهولة الإدارة.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="text-white font-bold">جودة وأمان عاليين</h4>
+                                <p class="text-slate-400 text-sm">نحرص على بناء كود نظيف، آمن، ومستقر يضمن أداء ممتاز بدون انقطاع.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="text-white font-bold">تقنيات حديثة والذكاء الاصطناعي</h4>
+                                <p class="text-slate-400 text-sm">نستخدم أحدث الحلول الذكية وبصمات الوجه لرفع الكفاءة التشغيلية.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div>
+                                <h4 class="text-white font-bold">دعم فني وتطوير مستمر</h4>
+                                <p class="text-slate-400 text-sm">نرافقك بعد التسليم لضمان استقرار العمل وتحديث الأنظمة بشكل دوري.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand Image / Stats -->
+                <div data-aos="fade-left" class="relative flex justify-center">
+                    <div class="gradient-border p-8 text-center max-w-md w-full">
+                        <img src="./viora-logo.jpeg" alt="Viora Logo" class="h-28 mx-auto mb-6 rounded-2xl shadow-2xl border border-slate-700">
+                        <h3 class="text-2xl font-bold text-white mb-2">VIORA DIGITAL</h3>
+                        <p class="text-sky-400 font-medium text-sm mb-6">Building Digital Solutions</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 pt-6 border-t border-slate-800">
+                            <div>
+                                <span class="block text-3xl font-extrabold text-white">9+</span>
+                                <span class="text-slate-400 text-xs">مشاريع ناجحة</span>
+                            </div>
+                            <div>
+                                <span class="block text-3xl font-extrabold text-sky-400">100%</span>
+                                <span class="text-slate-400 text-xs">رضا العملاء</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">تواصل مع فريق <span class="gradient-text">Viora</span></h2>
+                <p class="text-slate-400 max-w-xl mx-auto">هل لديك فكرة مشروع أو ترغب في استشارة برمجية؟ نحن جاهزون لمساعدتك فوراً.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Form -->
+                <div data-aos="fade-right" class="gradient-border p-8">
+                    <form class="space-y-5" onsubmit="event.preventDefault(); alert('شكرًا لتواصلك مع Viora Digital! سنقوم بالرد عليك قريبًا.');">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">الاسم الكامل</label>
+                            <input type="text" required placeholder="اكتب اسمك هنا" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">البريد الإلكتروني أو رقم الهاتف</label>
+                            <input type="text" required placeholder="example@domain.com / 010xxxxxxxx" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2">تفاصيل مشروعك أو الرسالة</label>
+                            <textarea rows="4" required placeholder="اشرح لنا فكرة مشروعك والتقنيات المطلوبة..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold shadow-lg shadow-sky-500/20 hover:scale-[1.02] transition-all">
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Direct Contact Cards -->
+                <div data-aos="fade-left" class="space-y-6 flex flex-col justify-center">
+                    <a href="https://wa.me/201024474059" target="_blank" class="gradient-border p-6 flex items-center gap-6 group hover:border-emerald-500/50 transition-colors">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.14 1.6 5.93L0 24l6.28-1.64A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.1-1.39l-.36-.21-3.73.98 1-3.64-.24-.37A9.92 9.92 0 1122 12c0 5.52-4.48 10-10 10zm5.21-7.79c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.66.15-.19.29-.76.94-.93 1.14-.17.19-.34.21-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.91-2.18-.24-.58-.49-.5-.66-.51h-.57c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.19 3.02c.15.19 2.07 3.17 5.02 4.45.7.3 1.25.48 1.68.61.71.23 1.35.2 1.86.12.57-.09 1.72-.7 1.96-1.38.24-.67.24-1.24.17-1.38-.07-.13-.26-.21-.55-.36z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold block">واتساب مباشر</span>
+                            <span class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">+20 102 447 4059</span>
+                        </div>
+                    </a>
+
+                    <a href="mailto:zeyady2233@gmail.com" class="gradient-border p-6 flex items-center gap-6 group hover:border-sky-500/50 transition-colors">
+                        <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold block">البريد الإلكتروني</span>
+                            <span class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors">zeyady2233@gmail.com</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/zeyadi9" target="_blank" class="gradient-border p-6 flex items-center gap-6 group hover:border-purple-500/50 transition-colors">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold block">حساب GitHub</span>
+                            <span class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">github.com/zeyadi9</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-slate-500 text-sm">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="./viora-logo.jpeg" alt="Logo" class="h-8 w-auto rounded">
+                <span class="text-white font-bold text-sm">VIORA DIGITAL</span>
+            </div>
+            <p>© 2026 Viora Digital. جميع الحقوق محفوظة - Building Digital Solutions.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS if it exists
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    easing: 'ease-in-out',
-                    once: true,
-                    mirror: false
-                });
-            }
+            AOS.init({
+                duration: 800,
+                once: true,
+            });
 
-            // Mobile menu functionality
-            const menuBtn = document.getElementById('menu-btn');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            const closeMenuBtn = document.getElementById('close-menu-button');
-            
-            // Toggle menu when clicking the burger button
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('active');
-                    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+
+            if (mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
                 });
             }
-            
-            // Close menu when clicking the close button
-            if (closeMenuBtn && mobileMenu) {
-                closeMenuBtn.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            }
-            
-            // Close menu when clicking outside
-            if (mobileMenu) {
-                mobileMenu.addEventListener('click', function(e) {
-                    if (e.target === mobileMenu) {
-                        mobileMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                });
-            }
-
-            // Close menu when clicking on any menu link
-            if (mobileMenu) {
-                const menuLinks = mobileMenu.querySelectorAll('a');
-                menuLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        mobileMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    });
-                });
-            }
-
-            // Skill bars animation
-            function setupSkillBars() {
-                const skillBars = document.querySelectorAll('.skill-bar-fill');
-                if (skillBars.length === 0) return;
-
-                const animateSkillBars = () => {
-                    skillBars.forEach(bar => {
-                        const width = bar.getAttribute('data-width');
-                        if (width) {
-                            bar.style.width = width;
-                        }
-                    });
-                };
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateSkillBars();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-
-                const skillsSection = document.querySelector('#Skills');
-                if (skillsSection) {
-                    observer.observe(skillsSection);
-                }
-            }
-
-            // Initialize functions
-            setupSkillBars();
         });
     </script>
-
-    <div class="bg-white">
-      <header class="relative lg:absolute inset-x-0 top-0 z-50 animate-fade-in">
-        <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
-          <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5 hover-grow hidden lg:block">
-              <span class="sr-only">Your Company</span>
-              <img src="./logo.png" alt="" class="h-16 w-auto" />
-            </a>
-          </div>
-          <div class="flex lg:hidden">
-            <button id="menu-btn" class="mobile-menu-button text-gray-700 focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
-                   viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#About" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="100">about me</a>
-            <a href="#Education" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="200">education</a>
-            <a href="#Skills" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="300">Skills</a>
-            <a href="#Projects" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="400">Projects</a>
-            <a href="#service" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="500">service</a>
-            <a href="#contact" class="text-sm/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors" data-aos="fade-down" data-aos-delay="600">Contact</a>
-          </div>
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          </div>
-        </nav>
-
-        <!-- Mobile Logo -->
-        <div class="mobile-logo lg:hidden">
-          <a href="#" class="-m-1.5 p-1.5 hover-grow">
-            <span class="sr-only">Your Company</span>
-            <img src="./logo.png" alt="" class="h-32 w-auto" />
-          </a>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden">
-          <div id="mobile-menu-content" class="bg-white">
-            <div class="mobile-menu-header">
-              <a href="#" class="flex items-center">
-                <img src="./logo.png" alt="" class="h-8 w-auto" />
-              </a>
-                    <!-- <button id="close-menu-button" type="button" class="text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button> -->
-            </div>
-            <div class="mobile-menu-links">
-              <a href="#About" class="block">about me</a>
-              <a href="#Education" class="block">education</a>
-              <a href="#Skills" class="block">Skills</a>
-              <a href="#Projects" class="block">Projects</a>
-              <a href="#service" class="block">service</a>
-              <a href="#contact" class="block">Contact</a>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div class="relative isolate px-6 lg:px-8 mb-12 mobile-content">
-        <div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 floating">
-          <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"></div>
-        </div>
-        <div class="mx-auto max-w-2xl lg:pt-52">
-          <div class="text-center mt-6" data-aos="fade-up">
-            <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl animate-slide-top">I'm Zeyad Yasser</h1>
-            <p class="mt-6 text-lg font-semibold text-pretty text-gray-950 sm:text-xl/8" data-aos="fade-up" data-aos-delay="100">Let's Take a Dive to Know Who is Zeyad</p>
-            <p class="mt-6 text-lg font-bold text-pretty text-gray-600 sm:text-xl/8" data-aos="fade-up" data-aos-delay="200">"Delivering reliable IT support, ensuring high-quality software through meticulous testing, and building effective, user-friendly Software solutions."</p>
-            <div class="mt-10 flex items-center justify-center gap-x-6" data-aos="fade-up" data-aos-delay="300">
-              <a href="#contact" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors animate-pulse">Get started</a>
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)] floating">
-          <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"></div>
-        </div>
-      </div>
-
-      <div class="bg-white">
-        <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 sm:px-6 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-          <div data-aos="fade-right">
-            <h2 id="About" class="text-3xl mb-4 font-bold tracking-tight text-gray-900 sm:text-5xl">About Me</h2>
-            <h2 class="text-lg leading-8 font-semibold tracking-tight text-gray-500 sm:text-lg">I'm a IT support specialist, software tester, and Software developer with a passion for delivering seamless digital experiences.
-            By providing reliable IT solutions, ensuring software quality through meticulous testing, and building responsive, user-friendly Softwares, I help businesses operate efficiently and connect better with their audiences. Whether it's resolving technical issues, eliminating software bugs, or creating impactful web solutions, I specialize in turning challenges into opportunities for growth. Let's work together to enhance your systems, improve performance, and bring your digital vision to life!</h2>
-
-            <p class="mt-8 text-lg font-bold leading-7 text-gray-600"> Here are a some of the services I provide:</p>
-
-            <ul class="mt-4 space-y-2 text-gray-700">
-              <li class="relative pl-6 before:content-arrow before:absolute before:left-0 text-lg font-semibold tracking-tight hover:text-indigo-600 transition-colors" data-aos="fade-right" data-aos-delay="100">
-                IT Support Specialist
-              </li>
-              <li class="relative pl-6 before:content-arrow before:absolute before:left-0 text-lg font-semibold tracking-tight hover:text-indigo-600 transition-colors" data-aos="fade-right" data-aos-delay="200">
-                Software Tester
-              </li>
-              <li class="relative pl-6 before:content-arrow before:absolute before:left-0 text-lg font-semibold tracking-tight hover:text-indigo-600 transition-colors" data-aos="fade-right" data-aos-delay="300">
-                Web Developer
-              </li>
-              <li class="relative pl-6 before:content-arrow before:absolute before:left-0 text-lg font-semibold tracking-tight hover:text-indigo-600 transition-colors" data-aos="fade-right" data-aos-delay="400">
-                Flutter Developer
-              </li>
-            </ul>
-          </div>
-          <div class="grid grid-cols-1 grid-rows-11 gap-4 sm:gap-6 lg:gap-8" data-aos="fade-left">
-            <img src="./ZEYAD.jpg" alt="Zeyad." class="p-20 rounded-lg blob hover-grow" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <section id="Education" class="bg-gray-50 py-10" data-aos="fade-up">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">Education & Experience</h2>
-        <div class="relative border-l border-blue-500">
-          
-          <!-- Item 1 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="100">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2022 – 2026</time>
-            <h3 class="text-lg font-semibold text-gray-900">Bachelor's in Computer Science</h3>
-            <p class="text-base font-normal text-gray-500">
-              Faculty of Computers and Information, Egyptian Korean University for Industrial Technology and Energy<br>
-              Specializing in Software Engineering
-            </p>
-          </div>
-
-
-                      <!-- Item 1 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="200">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2024</time>
-            <h3 class="text-lg font-semibold text-gray-900">IT Support | System Administrator</h3>
-            <p class="text-base font-normal text-gray-500">
-              Elmarwa Hotel <br>
-               Designed and deployed a full IT system for hotel management. , Trained staff on daily IT procedures and system use. 
-, Managed network and reservation systems. 
-            </p>
-          </div>
-
-          <!-- Item 1 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="200">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2024</time>
-            <h3 class="text-lg font-semibold text-gray-900">IT Manager</h3>
-            <p class="text-base font-normal text-gray-500">
-              Gamma Radiology Center <br>
- Provided comprehensive IT support across 3 branches. 
-• Maintained networks, printers, surveillance, and access systems. 
-• Supported radiology devices (MRI, CT, X-ray) from vendors including Toshiba and Siemens. 
-• Ensured minimal downtime and rapid issue resolution. 
-• Managing 4 servers (print server, system server (Millensys), backup server(Veeam), and 
-database server)  
-            </p>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="200">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2023</time>
-            <h3 class="text-lg font-semibold text-gray-900">C++ Development Intern</h3>
-            <p class="text-base font-normal text-gray-500">
-              Elzero Web School<br>
-              Learn the basics of C++, object-oriented programming, algorithms, and data structures.
-            </p>
-          </div>
-
-          <!-- Item 3 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="300">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2023</time>
-            <h3 class="text-lg font-semibold text-gray-900">Python Developer</h3>
-            <p class="text-base font-normal text-gray-500">
-              Elzero Web School<br>
-              Learn Python and Django Framework for Web Development
-            </p>
-          </div>
-
-          <!-- Item 4 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="400">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2025</time>
-            <h3 class="text-lg font-semibold text-gray-900">PHP</h3>
-            <p class="text-base font-normal text-gray-500">
-              Route Academy<br>
-              PHP language basics for developing websites and creating more than one project, including a project for the university
-            </p>
-          </div>
-
-          <!-- Item 5 -->
-          <div class="mb-10 ml-6" data-aos="fade-right" data-aos-delay="500">
-            <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-8 ring-gray-50 animate-pulse"></span>
-            <time class="mb-1 ml-6 text-sm font-normal leading-none text-blue-500">2026</time>
-            <h3 class="text-lg font-semibold text-gray-900">software Tester</h3>
-            <p class="text-base font-normal text-gray-500">
-              Egypt Digital Pioneers Initiative <br>
-              Software Testing Basics
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="Skills" class="bg-gray-50 py-10">
-      <div class="max-w-3xl mx-auto px-4" data-aos="fade-up">
-        <h2 class="text-3xl font-bold text-center mb-8">My Skills</h2>
-        
-        <!-- Skill Item -->
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">PHP</span>
-            <span class="text-sm font-medium text-gray-500">80%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="80%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="150">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">C++</span>
-            <span class="text-sm font-medium text-gray-500">70%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="70%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">Python</span>
-            <span class="text-sm font-medium text-gray-500">70%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="70%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="250">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">JavaScript</span>
-            <span class="text-sm font-medium text-gray-500">60%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="60%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">Tailwind CSS</span>
-            <span class="text-sm font-medium text-gray-500">90%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="90%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div class="mb-6" data-aos="fade-up" data-aos-delay="350">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">Java</span>
-            <span class="text-sm font-medium text-gray-500">70%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="70%" style="width: 0;"></div>
-          </div>
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="400">
-          <div class="flex justify-between mb-1">
-            <span class="text-base font-medium text-gray-700">QA</span>
-            <span class="text-sm font-medium text-gray-500">30%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div class="skill-bar-fill bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full" data-width="30%" style="width: 0;"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="Projects" class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">My Projects</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          <!-- Project Card -->
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover-grow" data-aos="zoom-in" data-aos-delay="100">
-            <img src="./hotel.jpg" alt="Project Image" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Hotel-Reservation-System</h3>
-              <p class="text-gray-600 text-sm mb-4">
-                A hotel reservation system that allows users to search, book, and pay for available rooms, and for employees to manage reservations, availability, and prices in real time.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">HTML</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Tailwind Css</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">JavaScript</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">PHP</span>
-              </div>
-              <a href="https://github.com/zeyad4a/Hotel-Reservation-System.git" class="block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold py-2 rounded-lg shadow-md hover:opacity-90 transition btn-hover-effect">
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <!-- Repeat for other projects -->
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover-grow" data-aos="zoom-in" data-aos-delay="200">
-            <img src="./kids.jpg" alt="Project Image" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Educational Platform for children with special needs</h3>
-              <p class="text-gray-600 text-sm mb-4">
-                Interactive web app teaching programming basics through videos, games, and quizzes.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">HTML</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Tailwind Css</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">JavaScript</span>
-              </div>
-              <a href="https://zeyad4a.github.io/Children_speech_problems/" class="block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold py-2 rounded-lg shadow-md hover:opacity-90 transition btn-hover-effect">
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover-grow" data-aos="zoom-in" data-aos-delay="300">
-            <img src="./hms.jpg" alt="Project Image" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Hospital Management System</h3>
-              <p class="text-gray-600 text-sm mb-4">
-                A hospital management system aims to organize and manage all hospital operations, such as patient registration, appointments, medical records, billing, and medical inventory, digitally and efficiently.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Html</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Tailwind Css</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">JavaScript</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Php</span>
-              </div>
-              <a href="https://github.com/zeyad4a/Hospital_Management_System.git" class="block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold py-2 rounded-lg shadow-md hover:opacity-90 transition btn-hover-effect">
-                View Details
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover-grow" data-aos="zoom-in" data-aos-delay="400">
-            <img src="./Online_Coaching.jpg" alt="Project Image" class="w-full h-48 object-cover">
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2">Online-Trining</h3>
-              <p class="text-gray-600 text-sm mb-4">
-              An online fitness training platform for gyms that allows trainers to provide workout and nutrition plans, stream live or recorded sessions, and track members' progress toward their fitness goals.          </p>
-              <div class="flex flex-wrap gap-2 mb-4">
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Html</span>
-                <span class="bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 rounded-full">Css</span>
-              </div>
-              <a href="https://zeyad4a.github.io/Onlin-Trining-Css-Html/" class="block w-full text-center bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold py-2 rounded-lg shadow-md hover:opacity-90 transition btn-hover-effect">
-                View Details
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="service" class="py-16 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">My Services</h2>
-        <div class="grid md:grid-cols-4 gap-8">
-
-          <!-- IT Support Solution -->
-          <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 hover-grow" data-aos="fade-up" data-aos-delay="100">
-            <div class="flex justify-center mb-4">
-              <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m0 14v1m8-9h1M4 12H3m15.36 6.36l.7.7M6.34 6.34l-.7-.7m12.02 0l.7-.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-center mb-2">IT Support Solution</h3>
-            <p class="text-gray-600 text-center">Providing reliable IT support solutions to ensure smooth operations and quick issue resolution.</p>
-          </div>
-
-          <!-- Software Tester -->
-          <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 hover-grow" data-aos="fade-up" data-aos-delay="200">
-            <div class="flex justify-center mb-4">
-              <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 4 9-4-9-4-9 4z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 17l9 4 9-4M3 12l9 4 9-4" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-center mb-2">Software Tester</h3>
-            <p class="text-gray-600 text-center">Performing manual and automated testing to ensure software quality and performance.</p>
-          </div>
-
-          <!-- Web Developer -->
-          <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 hover-grow" data-aos="fade-up" data-aos-delay="300">
-            <div class="flex justify-center mb-4">
-              <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-center mb-2">Web Developer</h3>
-            <p class="text-gray-600 text-center">Building responsive and user-friendly websites using modern technologies and best practices.</p>
-          </div>
-
-          <!-- Flutter Developer -->
-          <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 hover-grow" data-aos="fade-up" data-aos-delay="400">
-            <div class="flex justify-center mb-4">
-              <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132a4 4 0 00-5.555 1.11L3 15.75V21h5.25l3.197-4.8a4 4 0 011.11-5.555l2.195-1.477z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-center mb-2">Flutter Developer</h3>
-            <p class="text-gray-600 text-center">Creating high-performance cross-platform mobile apps with Flutter framework and modern UI/UX.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="py-16 bg-gradient-to-br from-blue-50 to-blue-100">
-      <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-12 text-blue-700" data-aos="fade-up">Contact Me</h2>
-        <div class="grid md:grid-cols-2 gap-10">
-
-          <!-- Contact Form -->
-          <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 hover-grow" data-aos="fade-right">
-            <form class="space-y-5">
-              <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition-all">
-              <input type="text" placeholder="Your Phone" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition-all">
-              <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition-all">
-              <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition-all"></textarea>
-              <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition btn-hover-effect">Send Message</button>
-            </form>
-          </div>
-
-          <!-- Get in Touch -->
-          <div class="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-10 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 hover-grow" data-aos="fade-left">
-            <h3 class="text-3xl font-bold mb-8 border-b-2 border-blue-300 pb-3">Get in Touch</h3>
-            <div class="space-y-6 text-lg">
-
-              <!-- WhatsApp -->
-               <a href="https://wa.me/201024474059" target="_blank" class="flex items-center space-x-4 hover:text-blue-200 transition">
-                <svg class="w-8 h-8 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.14 1.6 5.93L0 24l6.28-1.64A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.1-1.39l-.36-.21-3.73.98 1-3.64-.24-.37A9.92 9.92 0 1122 12c0 5.52-4.48 10-10 10zm5.21-7.79c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.66.15-.19.29-.76.94-.93 1.14-.17.19-.34.21-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.91-2.18-.24-.58-.49-.5-.66-.51h-.57c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.19 3.02c.15.19 2.07 3.17 5.02 4.45.7.3 1.25.48 1.68.61.71.23 1.35.2 1.86.12.57-.09 1.72-.7 1.96-1.38.24-.67.24-1.24.17-1.38-.07-.13-.26-.21-.55-.36z"/></svg>
-                <span class="font-medium">WhatsApp: +20 102 447 4059</span>
-              </a>
-
-              <!-- Gmail -->
-              <a href="mailto:zeyady2233@gmail.com" class="flex items-center space-x-4 hover:text-blue-200 transition">
-                <svg class="w-8 h-8 text-red-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-                <span class="font-medium">zeyady2233@gmail.com</span>
-              </a>
-
-              <!-- GitHub -->
-              <a href="https://github.com/zeyad4a" target="_blank" class="flex items-center space-x-4 hover:text-blue-200 transition">
-                <svg class="w-8 h-8 text-gray-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.724-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.834 2.809 1.304 3.495.997.108-.774.417-1.304.76-1.604-2.665-.3-5.466-1.334-5.466-5.93 0-1.31.467-2.382 1.235-3.222-.124-.303-.535-1.523.116-3.176 0 0 1.008-.322 3.3 1.23a11.48 11.48 0 013.004-.404c1.02.005 2.046.138 3.004.404 2.292-1.552 3.3-1.23 3.3-1.23.652 1.653.241 2.873.118 3.176.77.84 1.234 1.912 1.234 3.222 0 4.609-2.804 5.625-5.476 5.92.43.37.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                <span class="font-medium">github.com/zeyad4a</span>
-              </a>
-
-              <!-- Phone -->
-              <div class="flex items-center space-x-4">
-                <svg class="w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.19a1 1 0 011.02-.24l4.28 1.04a1 1 0 01.51.95V20.5a1.5 1.5 0 01-1.5 1.5C9.94 22 3 14.06 3 5.5 3 4.67 3.67 4 4.5 4h2.41a1 1 0 01.95.51l1.04 4.28a1 1 0 01-.24 1.02l-2.19 2.2z"/></svg>
-                <span class="font-medium">01024474059</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 </body>
-
 </html>
-
