@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +8,15 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
                     },
                     colors: {
                         viora: {
@@ -34,119 +36,157 @@
     </script>
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Theme Default */
+        html.dark body {
             background-color: #0b0f19;
             color: #f3f4f6;
         }
+        html.dark .glass-nav {
+            background: rgba(11, 15, 25, 0.85);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+        }
+        html.dark .gradient-border {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        html.dark .card-bg {
+            background-color: rgba(15, 23, 42, 0.8);
+        }
+
+        /* Light Theme */
+        html.light body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        html.light .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        html.light .gradient-border {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        html.light .text-slate-400 {
+            color: #64748b !important;
+        }
+        html.light .text-slate-300 {
+            color: #334155 !important;
+        }
+        html.light .text-white {
+            color: #0f172a !important;
+        }
+        html.light .bg-slate-900 {
+            background-color: #ffffff !important;
+            border-color: #cbd5e1 !important;
+        }
+        html.light .bg-slate-950 {
+            background-color: #f1f5f9 !important;
+        }
+
         .gradient-text {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gradient-border {
-            position: relative;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 1rem;
-        }
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 1.05rem;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), rgba(129, 140, 248, 0.1), rgba(192, 132, 252, 0.4));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        .glass-nav {
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(12px);
-        }
+        
         .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25);
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
     <!-- Header / Navbar -->
-    <header class="fixed top-0 inset-x-0 z-50 glass-nav border-b border-slate-800/60">
+    <header class="fixed top-0 inset-x-0 z-50 glass-nav backdrop-blur-md transition-all">
         <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3">
-                <img src="./viora-logo.jpeg" alt="Viora Digital Logo" class="h-12 w-auto rounded-lg shadow-lg border border-slate-700/50">
+                <img src="./viora-logo.jpeg" alt="Viora Digital Logo" class="h-12 w-auto rounded-lg shadow-md border border-slate-700/50">
                 <div class="flex flex-col">
-                    <span class="text-xl font-bold tracking-wider text-white">VIORA <span class="text-sky-400">DIGITAL</span></span>
+                    <span class="text-xl font-bold tracking-wider text-white">VIORA <span class="text-sky-500">DIGITAL</span></span>
                     <span class="text-[10px] text-slate-400 tracking-widest -mt-1 font-semibold">BUILDING DIGITAL SOLUTIONS</span>
                 </div>
             </a>
 
             <!-- Navigation Links -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
-                <a href="#about" class="hover:text-sky-400 transition-colors">عن فايورا</a>
-                <a href="#services" class="hover:text-sky-400 transition-colors">خدماتنا</a>
-                <a href="#projects" class="hover:text-sky-400 transition-colors">مشاريعنا</a>
-                <a href="#contact" class="hover:text-sky-400 transition-colors">تواصل معنا</a>
+            <div class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                <a href="#about" data-key="nav-about" class="hover:text-sky-400 transition-colors">عن فايورا</a>
+                <a href="#services" data-key="nav-services" class="hover:text-sky-400 transition-colors">خدماتنا</a>
+                <a href="#projects" data-key="nav-projects" class="hover:text-sky-400 transition-colors">مشاريعنا</a>
+                <a href="#contact" data-key="nav-contact" class="hover:text-sky-400 transition-colors">تواصل معنا</a>
             </div>
 
-            <!-- CTA Button -->
-            <div class="hidden md:block">
-                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-semibold text-sm shadow-lg hover:shadow-sky-500/25 hover:scale-105 transition-all">
-                    ابدأ مشروعك معنا
+            <!-- Controls: Theme Toggle & Language Toggle -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Switcher Button -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-amber-400 hover:bg-slate-700 transition-all flex items-center justify-center shadow-md">
+                    <!-- Sun Icon (Dark Mode active) -->
+                    <svg id="theme-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <!-- Moon Icon (Light Mode active) -->
+                    <svg id="theme-moon" class="w-5 h-5 hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+
+                <!-- Language Switcher Button -->
+                <button id="lang-toggle" class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700/60 text-sky-400 hover:bg-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                    <span id="lang-text">EN</span>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#contact" data-key="cta-start" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-semibold text-xs shadow-lg hover:scale-105 transition-all">
+                    ابدأ مشروعك
                 </a>
-            </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
         </nav>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 space-y-3">
-            <a href="#about" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">عن فايورا</a>
-            <a href="#services" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">خدماتنا</a>
-            <a href="#projects" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">مشاريعنا</a>
-            <a href="#contact" class="block text-slate-300 hover:text-sky-400 py-1 font-medium">تواصل معنا</a>
-            <a href="#contact" class="inline-block mt-2 px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-sm font-semibold">ابدأ مشروعك</a>
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 space-y-3">
+            <a href="#about" data-key="nav-about" class="block text-slate-300 hover:text-sky-400 font-medium">عن فايورا</a>
+            <a href="#services" data-key="nav-services" class="block text-slate-300 hover:text-sky-400 font-medium">خدماتنا</a>
+            <a href="#projects" data-key="nav-projects" class="block text-slate-300 hover:text-sky-400 font-medium">مشاريعنا</a>
+            <a href="#contact" data-key="nav-contact" class="block text-slate-300 hover:text-sky-400 font-medium">تواصل معنا</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden">
-        <!-- Background Glowing Orbs -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+    <section class="relative pt-36 pb-20 md:pt-44 md:pb-32 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
             <!-- Badge -->
-            <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/60 mb-8 backdrop-blur-md">
-                <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                <span class="text-xs font-semibold text-sky-300">Viora Digital Solutions</span>
+            <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/60 mb-6 shadow-sm">
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
+                <span class="text-xs font-semibold text-sky-300" data-key="hero-badge">Viora Digital Solutions</span>
             </div>
 
             <h1 data-aos="fade-up" class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                نحول أفكارك إلى <br class="hidden sm:inline">
-                <span class="gradient-text">حلول رقمية مبتكرة وتطبيقات ذكية</span>
+                <span data-key="hero-title-1">نحول أفكارك إلى</span> <br class="hidden sm:inline">
+                <span class="gradient-text" data-key="hero-title-2">حلول رقمية مبتكرة وتطبيقات ذكية</span>
             </h1>
 
-            <p data-aos="fade-up" data-aos-delay="100" class="max-w-3xl mx-auto text-lg md:text-xl text-slate-400 leading-relaxed mb-10">
-                فريق **Viora Digital** متخصص في بناء الأنظمة الإدارية الشاملة، المنصات التعليمية، تطبيقات الويب المستندة للذكاء الاصطناعي، والمواقع البرمجية المتكاملة لرفع كفاءة أعمالك.
+            <p data-aos="fade-up" data-aos-delay="100" data-key="hero-desc" class="max-w-3xl mx-auto text-base md:text-xl text-slate-400 leading-relaxed mb-10">
+                فريق Viora Digital متخصص في بناء الأنظمة الإدارية الشاملة، المنصات التعليمية، تطبيقات الويب المستندة للذكاء الاصطناعي، والمواقع البرمجية المتكاملة لرفع كفاءة أعمالك.
             </p>
 
             <div data-aos="fade-up" data-aos-delay="200" class="flex flex-wrap items-center justify-center gap-4">
-                <a href="#projects" class="px-8 py-4 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold shadow-xl shadow-sky-500/20 hover:scale-105 transition-all">
+                <a href="#projects" data-key="hero-btn-projects" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-xl shadow-sky-500/20 hover:scale-105 transition-all">
                     استعرض مشاريعنا
                 </a>
-                <a href="#contact" class="px-8 py-4 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-bold hover:bg-slate-800 hover:border-slate-600 transition-all">
+                <a href="#contact" data-key="hero-btn-contact" class="px-8 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-bold text-sm hover:bg-slate-800 transition-all">
                     تواصل مع الفريق
                 </a>
             </div>
@@ -154,48 +194,48 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-slate-900/40 relative border-t border-slate-800/40">
+    <section id="services" class="py-20 relative border-t border-slate-800/40">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">مجالات خبرتنا وخدماتنا</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">نقدم مجموعة واسعة من الخدمات البرمجية والحلول الرقمية التي تناسب احتياجات الشركات والمؤسسات.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" data-key="services-title">مجالات خبرتنا وخدماتنا</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto" data-key="services-sub">نقدم مجموعة واسعة من الخدمات البرمجية والحلول الرقمية التي تناسب احتياجات الشركات والمؤسسات.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Service 1 -->
-                <div data-aos="fade-up" data-aos-delay="100" class="gradient-border p-6 relative group card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                <div data-aos="fade-up" data-aos-delay="100" class="gradient-border p-6 rounded-2xl relative group card-hover">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">تطوير تطبيقات الويب</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">بناء مواقع وتطبيقات تفاعلية عالية السلاسة والأداء باستخدام أحدث التقنيات البرمجية.</p>
+                    <h3 class="text-lg font-bold text-white mb-2" data-key="srv1-title">تطوير تطبيقات الويب</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-key="srv1-desc">بناء مواقع وتطبيقات تفاعلية عالية السلاسة والأداء باستخدام أحدث التقنيات البرمجية.</p>
                 </div>
 
                 <!-- Service 2 -->
-                <div data-aos="fade-up" data-aos-delay="200" class="gradient-border p-6 relative group card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <div data-aos="fade-up" data-aos-delay="200" class="gradient-border p-6 rounded-2xl relative group card-hover">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">أنظمة إدارة الشركات ERP</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">تطوير أنظمة إدارية متكاملة لـ الموارد البشرية، الفنادق، المستشفيات، والمؤسسات التعليمية.</p>
+                    <h3 class="text-lg font-bold text-white mb-2" data-key="srv2-title">أنظمة إدارة الشركات ERP</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-key="srv2-desc">تطوير أنظمة إدارية متكاملة لـ الموارد البشرية، الفنادق، المستشفيات، والمؤسسات التعليمية.</p>
                 </div>
 
                 <!-- Service 3 -->
-                <div data-aos="fade-up" data-aos-delay="300" class="gradient-border p-6 relative group card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-1.372a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div data-aos="fade-up" data-aos-delay="300" class="gradient-border p-6 rounded-2xl relative group card-hover">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-1.372a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">حلول الذكاء الاصطناعي AI</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">دمج تقنيات الرؤية الحاسوبية (Computer Vision) وبصمة الوجه للتحكم وإدارة الحضور والانصراف.</p>
+                    <h3 class="text-lg font-bold text-white mb-2" data-key="srv3-title">حلول الذكاء الاصطناعي AI</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-key="srv3-desc">دمج تقنيات الرؤية الحاسوبية (Computer Vision) وبصمة الوجه للتحكم وإدارة الحضور والانصراف.</p>
                 </div>
 
                 <!-- Service 4 -->
-                <div data-aos="fade-up" data-aos-delay="400" class="gradient-border p-6 relative group card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <div data-aos="fade-up" data-aos-delay="400" class="gradient-border p-6 rounded-2xl relative group card-hover">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">المنصات التفاعلية والسياحية</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">أنظمة حجز متطورة، منصات سياحية، ومواقع تعليمية وتدريبية ذات تجربة مستخدم متميزة.</p>
+                    <h3 class="text-lg font-bold text-white mb-2" data-key="srv4-title">المنصات التفاعلية والسياحية</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-key="srv4-desc">أنظمة حجز متطورة، منصات سياحية، ومواقع تعليمية وتدريبية ذات تجربة مستخدم متميزة.</p>
                 </div>
             </div>
         </div>
@@ -206,241 +246,196 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16" data-aos="fade-up">
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">معرض أعمال <span class="gradient-text">Viora</span></h2>
-                    <p class="text-slate-400 text-lg">مجموعة من أبرز المشاريع التي قمنا بتطويرها وتشغيلها بنجاح.</p>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-3" data-key="proj-title">معرض أعمال <span class="gradient-text">Viora</span></h2>
+                    <p class="text-slate-400 text-base" data-key="proj-sub">مجموعة من أبرز المشاريع التي قمنا بتطويرها وتشغيلها بنجاح.</p>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <span class="text-sky-400 font-semibold text-sm">إجمالي المشاريع: 9 مشاريع مكتملة</span>
+                    <span class="text-sky-400 font-semibold text-xs bg-sky-500/10 px-3 py-1.5 rounded-full border border-sky-500/20" data-key="proj-count">إجمالي المشاريع: 9 مشاريع مكتملة</span>
                 </div>
             </div>
 
             <!-- Projects Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <!-- Live Featured Project 1: Campass -->
-                <div data-aos="zoom-in" data-aos-delay="100" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 1: Campass -->
+                <div data-aos="zoom-in" data-aos-delay="100" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold border border-sky-500/30">مشروع حي Live 🚀</span>
-                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">AI & Face ID</span>
+                            <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-400 text-xs font-bold border border-sky-500/30" data-key="tag-live">مشروع حي Live 🚀</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">AI & Face ID</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-sky-400 transition-colors">Campass - إدارة القاعات والطلاب</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-sky-400 transition-colors" data-key="p1-name">Campass - إدارة القاعات والطلاب</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p1-desc">
                             منصة متكاملة لإدارة وتنظيم القاعات وتسهيل وصول الطلاب للمقررات والماتريال، مزودة بنظام تسجيل الحضور والانصراف الذكي بواسطة بصمة الوجه والذكاء الاصطناعي.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Artificial Intelligence</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Face Recognition</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Campus Management</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://campass.ifree.page/homepage.php" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold text-sm shadow-lg hover:shadow-sky-500/30 transition-all">
-                            زيارة الموقع الحي
+                    <div>
+                        <a href="https://campass.ifree.page/homepage.php" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-bold text-xs shadow-lg hover:shadow-sky-500/30 transition-all">
+                            <span data-key="btn-visit">زيارة الموقع الحي</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- Live Featured Project 2: Egiptura -->
-                <div data-aos="zoom-in" data-aos-delay="150" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 2: Egiptura -->
+                <div data-aos="zoom-in" data-aos-delay="150" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30">مشروع حي Live 🚀</span>
-                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">منصة سياحية</span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30" data-key="tag-live">مشروع حي Live 🚀</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold" data-key="tag-tourism">منصة سياحية</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">Egiptura - إيجيبتورا للسياحة</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors" data-key="p2-name">Egiptura - إيجيبتورا للسياحة</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p2-desc">
                             منصة سياحية متخصصة لاكتشاف المعالم والوجهات السياحية والرحلات في مصر بتصميم عصري وتجربة تفاعلية متميزة للزوار.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Tourism Platform</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Booking & Travel</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Web App</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://egiptura.com/" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-sm shadow-lg hover:shadow-emerald-500/30 transition-all">
-                            زيارة الموقع الحي
+                    <div>
+                        <a href="https://egiptura.com/" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs shadow-lg hover:shadow-emerald-500/30 transition-all">
+                            <span data-key="btn-visit">زيارة الموقع الحي</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 1: HMS Graduation Project -->
-                <div data-aos="zoom-in" data-aos-delay="200" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 3: HMS Graduation Project -->
+                <div data-aos="zoom-in" data-aos-delay="200" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold">نظام إداري</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold" data-key="tag-admin">نظام إداري</span>
                             <span class="text-xs text-slate-400">Graduation Project</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">HMS - Hospital Management System</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors" data-key="p3-name">HMS - Hospital Management System</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p3-desc">
                             مشروع التخرج المتقدم لإدارة المستشفيات والمراكز الطبية شامل السجلات والروشتات والتخصصات والحجوزات.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">MySQL</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Healthcare ERP</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://github.com/zeyadi9/HMS_Graduation_project" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
-                            عرض على GitHub
+                    <div>
+                        <a href="https://github.com/zeyadi9/HMS_Graduation_project" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700">
+                            <span>GitHub Repository</span>
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 2: Hotel Reservation System -->
-                <div data-aos="zoom-in" data-aos-delay="250" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 4: Hotel Reservation -->
+                <div data-aos="zoom-in" data-aos-delay="250" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold">حجوزات وإدارة</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold" data-key="tag-booking">حجوزات وإدارة</span>
                             <span class="text-xs text-slate-400">Hotel System</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">Hotel Reservation System</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-blue-400 transition-colors" data-key="p4-name">Hotel Reservation System</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p4-desc">
                             نظام متكامل لحجز الفنادق يسمح للعملاء بالبحث والغرف، ويوفر لوحة للغرف والأسعار في الوقت الفعلي.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Tailwind CSS</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Booking Engine</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://github.com/zeyadi9/Hotel-Reservation-System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
-                            عرض على GitHub
+                    <div>
+                        <a href="https://github.com/zeyadi9/Hotel-Reservation-System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700">
+                            <span>GitHub Repository</span>
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 3: HR System -->
-                <div data-aos="zoom-in" data-aos-delay="300" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 5: HR System -->
+                <div data-aos="zoom-in" data-aos-delay="300" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-semibold">إدارة شركات</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 text-xs font-semibold" data-key="tag-hr">إدارة شركات</span>
                             <span class="text-xs text-slate-400">HR Solution</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">HR Management System</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-violet-400 transition-colors" data-key="p5-name">HR Management System</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p5-desc">
                             نظام متكامل لإدارة الموارد البشرية، متابعة الموظفين، الرواتب، والإجازات وتقارير أداء العمل.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Employee Management</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Payroll</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://github.com/zeyadi9/HR_System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
-                            عرض على GitHub
+                    <div>
+                        <a href="https://github.com/zeyadi9/HR_System" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700">
+                            <span>GitHub Repository</span>
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 4: Real Estate System -->
-                <div data-aos="zoom-in" data-aos-delay="350" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 6: Real Estate System -->
+                <div data-aos="zoom-in" data-aos-delay="350" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold">منصة عقارات</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-xs font-semibold" data-key="tag-estate">منصة عقارات</span>
                             <span class="text-xs text-slate-400">Real Estate</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-rose-400 transition-colors">Real Estate Platform</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-rose-400 transition-colors" data-key="p6-name">Real Estate Platform</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p6-desc">
                             منصة لإدارة واستعراض الوحدات العقارية، التواصل مع الملاك، وتنظيم عمليات العرض والطلب.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">PHP</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Property Listing</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Real Estate</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://github.com/zeyadi9/Real_state" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
-                            عرض على GitHub
+                    <div>
+                        <a href="https://github.com/zeyadi9/Real_state" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700">
+                            <span>GitHub Repository</span>
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 5: Student Training -->
-                <div data-aos="zoom-in" data-aos-delay="400" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 7: Student Training -->
+                <div data-aos="zoom-in" data-aos-delay="400" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-semibold">منصة تعليمية</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-semibold" data-key="tag-student">منصة تعليمية</span>
                             <span class="text-xs text-slate-400">Student Training</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Manage Student Training</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors" data-key="p7-name">Manage Student Training</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p7-desc">
                             نظام متابعة وتدريب الطلاب لتنظيم المهام، متابعة الأداء، والتقييم الدوري للتدريب الميداني.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">HTML5</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Training System</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Education</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto">
-                        <a href="https://github.com/zeyadi9/Manage_Student_Training" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700">
-                            عرض على GitHub
+                    <div>
+                        <a href="https://github.com/zeyadi9/Manage_Student_Training" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700">
+                            <span>GitHub Repository</span>
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 6: Children Speech Problems -->
-                <div data-aos="zoom-in" data-aos-delay="450" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 8: Children Speech Problems -->
+                <div data-aos="zoom-in" data-aos-delay="450" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">تفاعلي / ذوي الهمم</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold" data-key="tag-kids">تفاعلي / ذوي الهمم</span>
                             <span class="text-xs text-slate-400">Interactive App</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Children Speech Problems</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-amber-400 transition-colors" data-key="p8-name">Children Speech Problems</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p8-desc">
                             منصة تعليمية وتفاعلية تهدف لمساعدة الأطفال ومراكز التخاطب على علاج وصعوبات الكلام عبر أنشطة مرئية وصوتية.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">JavaScript</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Interactive UI</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Speech Therapy</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto flex gap-2">
-                        <a href="https://zeyad4a.github.io/Children_speech_problems/" target="_blank" class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs text-center transition-all">
-                            معاينة Demo
+                    <div class="flex gap-2">
+                        <a href="https://zeyad4a.github.io/Children_speech_problems/" target="_blank" class="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs text-center transition-all">
+                            Demo
                         </a>
-                        <a href="https://github.com/zeyadi9/Children_speech_problems" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
+                        <a href="https://github.com/zeyadi9/Children_speech_problems" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
                             GitHub
                         </a>
                     </div>
                 </div>
 
-                <!-- GitHub Project 7: Online Training Platform -->
-                <div data-aos="zoom-in" data-aos-delay="500" class="gradient-border overflow-hidden group card-hover flex flex-col justify-between">
-                    <div class="p-6">
+                <!-- Project 9: Online Training Platform -->
+                <div data-aos="zoom-in" data-aos-delay="500" class="gradient-border rounded-2xl p-6 group card-hover flex flex-col justify-between">
+                    <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold">تدريب أولاين</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold" data-key="tag-online">تدريب أونلاين</span>
                             <span class="text-xs text-slate-400">Fitness App</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">Online Training Platform</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        <h3 class="text-lg font-bold text-white mb-3 group-hover:text-teal-400 transition-colors" data-key="p9-name">Online Training Platform</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6" data-key="p9-desc">
                             موقع تدريب لياقة بدنية ورياضة عبر الإنترنت لتقديم الجداول والتمارين والخطط الغذائية بشكل مميز.
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">HTML5</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">CSS3</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium">Fitness</span>
-                        </div>
                     </div>
-                    <div class="p-6 pt-0 mt-auto flex gap-2">
-                        <a href="https://zeyad4a.github.io/Onlin-Trining-Css-Html/" target="_blank" class="flex-1 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold text-xs text-center transition-all">
-                            معاينة Demo
+                    <div class="flex gap-2">
+                        <a href="https://zeyad4a.github.io/Onlin-Trining-Css-Html/" target="_blank" class="flex-1 py-2 rounded-xl bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold text-xs text-center transition-all">
+                            Demo
                         </a>
-                        <a href="https://github.com/zeyadi9/Onlin-Trining-Css-Html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
+                        <a href="https://github.com/zeyadi9/Onlin-Trining-Css-Html" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all border border-slate-700 flex items-center justify-center">
                             GitHub
                         </a>
                     </div>
@@ -451,58 +446,57 @@
     </section>
 
     <!-- Why Choose Viora Section -->
-    <section id="about" class="py-20 bg-slate-900/60 border-t border-slate-800">
+    <section id="about" class="py-20 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right">
-                    <span class="text-sky-400 font-bold text-sm tracking-wider uppercase">لماذا Viora Digital؟</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 leading-tight">
+                    <span class="text-sky-400 font-bold text-xs tracking-wider uppercase" data-key="about-subtitle">لماذا Viora Digital؟</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6 leading-tight" data-key="about-title">
                         شريكك البرمجي الموثوق لبناء المستقبل الرقمي
                     </h2>
-                    <p class="text-slate-300 leading-relaxed mb-6">
-                        نحن في **Viora Digital** نجمع بين الخبرة العميقة في تطوير البرمجيات، تصميم واجهات المستخدم الجذابة، ودمج تقنيات الذكاء الاصطناعي لتوفير حلول برمجية مخصصة بالكامل تضمن لك التميز وسهولة الإدارة.
+                    <p class="text-slate-300 leading-relaxed mb-6 text-sm md:text-base" data-key="about-desc">
+                        نحن في Viora Digital نجمع بين الخبرة العميقة في تطوير البرمجيات، تصميم واجهات المستخدم الجذابة، ودمج تقنيات الذكاء الاصطناعي لتوفير حلول برمجية مخصصة بالكامل تضمن لك التميز وسهولة الإدارة.
                     </p>
 
                     <div class="space-y-4">
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold">✓</div>
                             <div>
-                                <h4 class="text-white font-bold">جودة وأمان عاليين</h4>
-                                <p class="text-slate-400 text-sm">نحرص على بناء كود نظيف، آمن، ومستقر يضمن أداء ممتاز بدون انقطاع.</p>
+                                <h4 class="text-white font-bold text-sm" data-key="feat1-title">جودة وأمان عاليين</h4>
+                                <p class="text-slate-400 text-xs" data-key="feat1-desc">نحرص على بناء كود نظيف، آمن، ومستقر يضمن أداء ممتاز بدون انقطاع.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold">✓</div>
                             <div>
-                                <h4 class="text-white font-bold">تقنيات حديثة والذكاء الاصطناعي</h4>
-                                <p class="text-slate-400 text-sm">نستخدم أحدث الحلول الذكية وبصمات الوجه لرفع الكفاءة التشغيلية.</p>
+                                <h4 class="text-white font-bold text-sm" data-key="feat2-title">تقنيات حديثة والذكاء الاصطناعي</h4>
+                                <p class="text-slate-400 text-xs" data-key="feat2-desc">نستخدم أحدث الحلول الذكية وبصمات الوجه لرفع الكفاءة التشغيلية.</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-1">✓</div>
+                            <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5 text-sm font-bold">✓</div>
                             <div>
-                                <h4 class="text-white font-bold">دعم فني وتطوير مستمر</h4>
-                                <p class="text-slate-400 text-sm">نرافقك بعد التسليم لضمان استقرار العمل وتحديث الأنظمة بشكل دوري.</p>
+                                <h4 class="text-white font-bold text-sm" data-key="feat3-title">دعم فني وتطوير مستمر</h4>
+                                <p class="text-slate-400 text-xs" data-key="feat3-desc">نرافقك بعد التسليم لضمان استقرار العمل وتحديث الأنظمة بشكل دوري.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Brand Image / Stats -->
                 <div data-aos="fade-left" class="relative flex justify-center">
-                    <div class="gradient-border p-8 text-center max-w-md w-full">
-                        <img src="./viora-logo.jpeg" alt="Viora Logo" class="h-28 mx-auto mb-6 rounded-2xl shadow-2xl border border-slate-700">
-                        <h3 class="text-2xl font-bold text-white mb-2">VIORA DIGITAL</h3>
-                        <p class="text-sky-400 font-medium text-sm mb-6">Building Digital Solutions</p>
+                    <div class="gradient-border rounded-2xl p-8 text-center max-w-md w-full shadow-2xl">
+                        <img src="./viora-logo.jpeg" alt="Viora Logo" class="h-24 mx-auto mb-5 rounded-xl shadow-lg border border-slate-700">
+                        <h3 class="text-2xl font-bold text-white mb-1">VIORA DIGITAL</h3>
+                        <p class="text-sky-400 font-medium text-xs mb-6">Building Digital Solutions</p>
                         
                         <div class="grid grid-cols-2 gap-4 pt-6 border-t border-slate-800">
                             <div>
                                 <span class="block text-3xl font-extrabold text-white">9+</span>
-                                <span class="text-slate-400 text-xs">مشاريع ناجحة</span>
+                                <span class="text-slate-400 text-xs" data-key="stat-projects">مشاريع ناجحة</span>
                             </div>
                             <div>
                                 <span class="block text-3xl font-extrabold text-sky-400">100%</span>
-                                <span class="text-slate-400 text-xs">رضا العملاء</span>
+                                <span class="text-slate-400 text-xs" data-key="stat-satisfaction">رضا العملاء</span>
                             </div>
                         </div>
                     </div>
@@ -515,61 +509,61 @@
     <section id="contact" class="py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">تواصل مع فريق <span class="gradient-text">Viora</span></h2>
-                <p class="text-slate-400 max-w-xl mx-auto">هل لديك فكرة مشروع أو ترغب في استشارة برمجية؟ نحن جاهزون لمساعدتك فوراً.</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-3" data-key="contact-title">تواصل مع فريق <span class="gradient-text">Viora</span></h2>
+                <p class="text-slate-400 max-w-xl mx-auto text-sm" data-key="contact-sub">هل لديك فكرة مشروع أو ترغب في استشارة برمجية؟ نحن جاهزون لمساعدتك فوراً.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Form -->
-                <div data-aos="fade-right" class="gradient-border p-8">
-                    <form class="space-y-5" onsubmit="event.preventDefault(); alert('شكرًا لتواصلك مع Viora Digital! سنقوم بالرد عليك قريبًا.');">
+                <div data-aos="fade-right" class="gradient-border rounded-2xl p-8">
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert(currentLang === 'ar' ? 'شكرًا لتواصلك مع Viora Digital! سنقوم بالرد عليك قريبًا.' : 'Thank you for contacting Viora Digital! We will get back to you soon.');">
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">الاسم الكامل</label>
-                            <input type="text" required placeholder="اكتب اسمك هنا" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors">
+                            <label class="block text-xs font-semibold text-slate-300 mb-2" data-key="form-name">الاسم الكامل</label>
+                            <input type="text" required placeholder="Name" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">البريد الإلكتروني أو رقم الهاتف</label>
-                            <input type="text" required placeholder="example@domain.com / 010xxxxxxxx" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors">
+                            <label class="block text-xs font-semibold text-slate-300 mb-2" data-key="form-contact">البريد الإلكتروني أو رقم الهاتف</label>
+                            <input type="text" required placeholder="Email / Phone" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">تفاصيل مشروعك أو الرسالة</label>
-                            <textarea rows="4" required placeholder="اشرح لنا فكرة مشروعك والتقنيات المطلوبة..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"></textarea>
+                            <label class="block text-xs font-semibold text-slate-300 mb-2" data-key="form-message">تفاصيل مشروعك أو الرسالة</label>
+                            <textarea rows="4" required placeholder="Project details..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors text-sm"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold shadow-lg shadow-sky-500/20 hover:scale-[1.02] transition-all">
+                        <button type="submit" data-key="form-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold text-sm shadow-lg hover:scale-[1.02] transition-all">
                             إرسال الرسالة
                         </button>
                     </form>
                 </div>
 
                 <!-- Direct Contact Cards -->
-                <div data-aos="fade-left" class="space-y-6 flex flex-col justify-center">
-                    <a href="https://wa.me/201024474059" target="_blank" class="gradient-border p-6 flex items-center gap-6 group hover:border-emerald-500/50 transition-colors">
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.14 1.6 5.93L0 24l6.28-1.64A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.1-1.39l-.36-.21-3.73.98 1-3.64-.24-.37A9.92 9.92 0 1122 12c0 5.52-4.48 10-10 10zm5.21-7.79c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.66.15-.19.29-.76.94-.93 1.14-.17.19-.34.21-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.91-2.18-.24-.58-.49-.5-.66-.51h-.57c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.19 3.02c.15.19 2.07 3.17 5.02 4.45.7.3 1.25.48 1.68.61.71.23 1.35.2 1.86.12.57-.09 1.72-.7 1.96-1.38.24-.67.24-1.24.17-1.38-.07-.13-.26-.21-.55-.36z"/></svg>
+                <div data-aos="fade-left" class="space-y-5 flex flex-col justify-center">
+                    <a href="https://wa.me/201024474059" target="_blank" class="gradient-border rounded-2xl p-5 flex items-center gap-5 group hover:border-emerald-500/50 transition-colors">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.38 0 0 5.38 0 12c0 2.11.55 4.14 1.6 5.93L0 24l6.28-1.64A11.93 11.93 0 0012 24c6.62 0 12-5.38 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22a9.93 9.93 0 01-5.1-1.39l-.36-.21-3.73.98 1-3.64-.24-.37A9.92 9.92 0 1122 12c0 5.52-4.48 10-10 10zm5.21-7.79c-.29-.15-1.72-.85-1.99-.94-.27-.1-.46-.15-.66.15-.19.29-.76.94-.93 1.14-.17.19-.34.21-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.91-2.18-.24-.58-.49-.5-.66-.51h-.57c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.19 3.02c.15.19 2.07 3.17 5.02 4.45.7.3 1.25.48 1.68.61.71.23 1.35.2 1.86.12.57-.09 1.72-.7 1.96-1.38.24-.67.24-1.24.17-1.38-.07-.13-.26-.21-.55-.36z"/></svg>
                         </div>
                         <div>
-                            <span class="text-xs text-slate-400 font-semibold block">واتساب مباشر</span>
-                            <span class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">+20 102 447 4059</span>
+                            <span class="text-xs text-slate-400 font-semibold block" data-key="contact-wa">واتساب مباشر</span>
+                            <span class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">+20 102 447 4059</span>
                         </div>
                     </a>
 
-                    <a href="mailto:zeyady2233@gmail.com" class="gradient-border p-6 flex items-center gap-6 group hover:border-sky-500/50 transition-colors">
-                        <div class="w-14 h-14 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                    <a href="mailto:zeyady2233@gmail.com" class="gradient-border rounded-2xl p-5 flex items-center gap-5 group hover:border-sky-500/50 transition-colors">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
                         </div>
                         <div>
-                            <span class="text-xs text-slate-400 font-semibold block">البريد الإلكتروني</span>
-                            <span class="text-lg font-bold text-white group-hover:text-sky-400 transition-colors">zeyady2233@gmail.com</span>
+                            <span class="text-xs text-slate-400 font-semibold block" data-key="contact-email">البريد الإلكتروني</span>
+                            <span class="text-base font-bold text-white group-hover:text-sky-400 transition-colors">zeyady2233@gmail.com</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/zeyadi9" target="_blank" class="gradient-border p-6 flex items-center gap-6 group hover:border-purple-500/50 transition-colors">
-                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <a href="https://github.com/zeyadi9" target="_blank" class="gradient-border rounded-2xl p-5 flex items-center gap-5 group hover:border-purple-500/50 transition-colors">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                         </div>
                         <div>
-                            <span class="text-xs text-slate-400 font-semibold block">حساب GitHub</span>
-                            <span class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">github.com/zeyadi9</span>
+                            <span class="text-xs text-slate-400 font-semibold block">GitHub</span>
+                            <span class="text-base font-bold text-white group-hover:text-purple-400 transition-colors">github.com/zeyadi9</span>
                         </div>
                     </a>
                 </div>
@@ -578,33 +572,222 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-slate-500 text-sm">
+    <footer class="py-8 border-t border-slate-800 text-center text-slate-500 text-xs">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <img src="./viora-logo.jpeg" alt="Logo" class="h-8 w-auto rounded">
-                <span class="text-white font-bold text-sm">VIORA DIGITAL</span>
+                <span class="text-white font-bold">VIORA DIGITAL</span>
             </div>
-            <p>© 2026 Viora Digital. جميع الحقوق محفوظة - Building Digital Solutions.</p>
+            <p data-key="footer-rights">© 2026 Viora Digital. جميع الحقوق محفوظة - Building Digital Solutions.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                once: true,
-            });
+        // Translations Data
+        const translations = {
+            ar: {
+                'nav-about': 'عن فايورا',
+                'nav-services': 'خدماتنا',
+                'nav-projects': 'مشاريعنا',
+                'nav-contact': 'تواصل معنا',
+                'cta-start': 'ابدأ مشروعك',
+                'hero-badge': 'Viora Digital Solutions',
+                'hero-title-1': 'نحول أفكارك إلى',
+                'hero-title-2': 'حلول رقمية مبتكرة وتطبيقات ذكية',
+                'hero-desc': 'فريق Viora Digital متخصص في بناء الأنظمة الإدارية الشاملة، المنصات التعليمية، تطبيقات الويب المستندة للذكاء الاصطناعي، والمواقع البرمجية المتكاملة لرفع كفاءة أعمالك.',
+                'hero-btn-projects': 'استعرض مشاريعنا',
+                'hero-btn-contact': 'تواصل مع الفريق',
+                'services-title': 'مجالات خبرتنا وخدماتنا',
+                'services-sub': 'نقدم مجموعة واسعة من الخدمات البرمجية والحلول الرقمية التي تناسب احتياجات الشركات والمؤسسات.',
+                'srv1-title': 'تطوير تطبيقات الويب',
+                'srv1-desc': 'بناء مواقع وتطبيقات تفاعلية عالية السلاسة والأداء باستخدام أحدث التقنيات البرمجية.',
+                'srv2-title': 'أنظمة إدارة الشركات ERP',
+                'srv2-desc': 'تطوير أنظمة إدارية متكاملة لـ الموارد البشرية، الفنادق، المستشفيات، والمؤسسات التعليمية.',
+                'srv3-title': 'حلول الذكاء الاصطناعي AI',
+                'srv3-desc': 'دمج تقنيات الرؤية الحاسوبية (Computer Vision) وبصمة الوجه للتحكم وإدارة الحضور والانصراف.',
+                'srv4-title': 'المنصات التفاعلية والسياحية',
+                'srv4-desc': 'أنظمة حجز متطورة، منصات سياحية، ومواقع تعليمية وتدريبية ذات تجربة مستخدم متميزة.',
+                'proj-title': 'معرض أعمال Viora',
+                'proj-sub': 'مجموعة من أبرز المشاريع التي قمنا بتطويرها وتشغيلها بنجاح.',
+                'proj-count': 'إجمالي المشاريع: 9 مشاريع مكتملة',
+                'tag-live': 'مشروع حي Live 🚀',
+                'tag-tourism': 'منصة سياحية',
+                'tag-admin': 'نظام إداري',
+                'tag-booking': 'حجوزات وإدارة',
+                'tag-hr': 'إدارة شركات',
+                'tag-estate': 'منصة عقارات',
+                'tag-student': 'منصة تعليمية',
+                'tag-kids': 'تفاعلي / ذوي الهمم',
+                'tag-online': 'تدريب أونلاين',
+                'btn-visit': 'زيارة الموقع الحي',
+                'p1-name': 'Campass - إدارة القاعات والطلاب',
+                'p1-desc': 'منصة متكاملة لإدارة وتنظيم القاعات وتسهيل وصول الطلاب للمقررات والماتريال، مزودة بنظام تسجيل الحضور والانصراف الذكي بواسطة بصمة الوجه والذكاء الاصطناعي.',
+                'p2-name': 'Egiptura - إيجيبتورا للسياحة',
+                'p2-desc': 'منصة سياحية متخصصة لاكتشاف المعالم والوجهات السياحية والرحلات في مصر بتصميم عصري وتجربة تفاعلية متميزة للزوار.',
+                'p3-name': 'HMS - Hospital Management System',
+                'p3-desc': 'مشروع التخرج المتقدم لإدارة المستشفيات والمراكز الطبية شامل السجلات والروشتات والتخصصات والحجوزات.',
+                'p4-name': 'Hotel Reservation System',
+                'p4-desc': 'نظام متكامل لحجز الفنادق يسمح للعملاء بالبحث والغرف، ويوفر لوحة للغرف والأسعار في الوقت الفعلي.',
+                'p5-name': 'HR Management System',
+                'p5-desc': 'نظام متكامل لإدارة الموارد البشرية، متابعة الموظفين، الرواتب، والإجازات وتقارير أداء العمل.',
+                'p6-name': 'Real Estate Platform',
+                'p6-desc': 'منصة لإدارة واستعراض الوحدات العقارية، التواصل مع الملاك، وتنظيم عمليات العرض والطلب.',
+                'p7-name': 'Manage Student Training',
+                'p7-desc': 'نظام متابعة وتدريب الطلاب لتنظيم المهام، متابعة الأداء، والتقييم الدوري للتدريب الميداني.',
+                'p8-name': 'Children Speech Problems',
+                'p8-desc': 'منصة تعليمية وتفاعلية تهدف لمساعدة الأطفال ومراكز التخاطب على علاج وصعوبات الكلام عبر أنشطة مرئية وصوتية.',
+                'p9-name': 'Online Training Platform',
+                'p9-desc': 'موقع تدريب لياقة بدنية ورياضة عبر الإنترنت لتقديم الجداول والتمارين والخطط الغذائية بشكل مميز.',
+                'about-subtitle': 'لماذا Viora Digital؟',
+                'about-title': 'شريكك البرمجي الموثوق لبناء المستقبل الرقمي',
+                'about-desc': 'نحن في Viora Digital نجمع بين الخبرة العميقة في تطوير البرمجيات، تصميم واجهات المستخدم الجذابة، ودمج تقنيات الذكاء الاصطناعي لتوفير حلول برمجية مخصصة بالكامل تضمن لك التميز وسهولة الإدارة.',
+                'feat1-title': 'جودة وأمان عاليين',
+                'feat1-desc': 'نحرص على بناء كود نظيف، آمن، ومستقر يضمن أداء ممتاز بدون انقطاع.',
+                'feat2-title': 'تقنيات حديثة والذكاء الاصطناعي',
+                'feat2-desc': 'نستخدم أحدث الحلول الذكية وبصمات الوجه لرفع الكفاءة التشغيلية.',
+                'feat3-title': 'دعم فني وتطوير مستمر',
+                'feat3-desc': 'نرافقك بعد التسليم لضمان استقرار العمل وتحديث الأنظمة بشكل دوري.',
+                'stat-projects': 'مشاريع ناجحة',
+                'stat-satisfaction': 'رضا العملاء',
+                'contact-title': 'تواصل مع فريق Viora',
+                'contact-sub': 'هل لديك فكرة مشروع أو ترغب في استشارة برمجية؟ نحن جاهزون لمساعدتك فوراً.',
+                'form-name': 'الاسم الكامل',
+                'form-contact': 'البريد الإلكتروني أو رقم الهاتف',
+                'form-message': 'تفاصيل مشروعك أو الرسالة',
+                'form-btn': 'إرسال الرسالة',
+                'contact-wa': 'واتساب مباشر',
+                'contact-email': 'البريد الإلكتروني',
+                'footer-rights': '© 2026 Viora Digital. جميع الحقوق محفوظة - Building Digital Solutions.'
+            },
+            en: {
+                'nav-about': 'About Viora',
+                'nav-services': 'Services',
+                'nav-projects': 'Projects',
+                'nav-contact': 'Contact Us',
+                'cta-start': 'Get Started',
+                'hero-badge': 'Viora Digital Solutions',
+                'hero-title-1': 'Transforming Your Ideas Into',
+                'hero-title-2': 'Innovative Digital Solutions & Smart Apps',
+                'hero-desc': 'Viora Digital team specializes in building comprehensive management systems, e-learning platforms, AI-driven web apps, and custom software solutions to boost your business efficiency.',
+                'hero-btn-projects': 'Explore Projects',
+                'hero-btn-contact': 'Contact Team',
+                'services-title': 'Our Expertise & Services',
+                'services-sub': 'We offer a wide range of software development services tailored for businesses and enterprises.',
+                'srv1-title': 'Web Application Development',
+                'srv1-desc': 'Building smooth, high-performance web applications using state-of-the-art tech stacks.',
+                'srv2-title': 'ERP & Enterprise Systems',
+                'srv2-desc': 'Developing integrated management systems for HR, Hotels, Hospitals, and Educational Institutes.',
+                'srv3-title': 'Artificial Intelligence Solutions',
+                'srv3-desc': 'Integrating Computer Vision and Face Recognition for smart attendance and security control.',
+                'srv4-title': 'Interactive & Tourism Platforms',
+                'srv4-desc': 'Advanced booking systems, tourism platforms, and e-learning web apps with premium UX.',
+                'proj-title': 'Viora Portfolio Showcase',
+                'proj-sub': 'A curated selection of key projects developed and deployed by our team.',
+                'proj-count': 'Total Projects: 9 Completed',
+                'tag-live': 'Live Project 🚀',
+                'tag-tourism': 'Tourism Platform',
+                'tag-admin': 'Admin System',
+                'tag-booking': 'Booking System',
+                'tag-hr': 'HR Solution',
+                'tag-estate': 'Real Estate',
+                'tag-student': 'EdTech',
+                'tag-kids': 'Interactive / Special Needs',
+                'tag-online': 'Online Fitness',
+                'btn-visit': 'Visit Live Site',
+                'p1-name': 'Campass - Smart Campus & Hall Management',
+                'p1-desc': 'A comprehensive campus platform managing lecture halls, course materials, and AI-powered facial recognition attendance.',
+                'p2-name': 'Egiptura - Tourism Platform',
+                'p2-desc': 'A specialized tourism web platform discovering destinations, landmarks, and travel trips across Egypt.',
+                'p3-name': 'HMS - Hospital Management System',
+                'p3-desc': 'Advanced graduation project managing hospital operations, electronic health records, prescriptions, and bookings.',
+                'p4-name': 'Hotel Reservation System',
+                'p4-desc': 'An end-to-end hotel booking platform enabling guests to search, reserve rooms, and manage availability in real time.',
+                'p5-name': 'HR Management System',
+                'p5-desc': 'Complete human resources solution managing employee records, payroll, leaves, and performance evaluations.',
+                'p6-name': 'Real Estate Platform',
+                'p6-desc': 'A web platform for listing and managing properties, facilitating owner communication, and handling inquiries.',
+                'p7-name': 'Manage Student Training',
+                'p7-desc': 'A student internship management system tracking tasks, progress performance, and periodic evaluation reports.',
+                'p8-name': 'Children Speech Problems',
+                'p8-desc': 'An interactive educational platform designed to assist children and speech centers in speech therapy.',
+                'p9-name': 'Online Training Platform',
+                'p9-desc': 'A fitness and online athletic training website providing custom workout routines and nutrition plans.',
+                'about-subtitle': 'Why Viora Digital?',
+                'about-title': 'Your Trusted Software Partner for the Digital Future',
+                'about-desc': 'At Viora Digital, we combine deep software engineering expertise, elegant UI/UX design, and AI integration to deliver fully customized software solutions.',
+                'feat1-title': 'High Quality & Security',
+                'feat1-desc': 'We write clean, secure, and robust code ensuring optimal uptime and stability.',
+                'feat2-title': 'Modern Tech & AI Integration',
+                'feat2-desc': 'Leveraging cutting-edge smart solutions and facial recognition to boost operational productivity.',
+                'feat3-title': 'Continuous Support & Updates',
+                'feat3-desc': 'We partner with you post-deployment to ensure system stability and regular updates.',
+                'stat-projects': 'Successful Projects',
+                'stat-satisfaction': 'Client Satisfaction',
+                'contact-title': 'Get In Touch With Viora',
+                'contact-sub': 'Have a project idea or need technical consultation? We are ready to help you instantly.',
+                'form-name': 'Full Name',
+                'form-contact': 'Email or Phone Number',
+                'form-message': 'Project Details or Message',
+                'form-btn': 'Send Message',
+                'contact-wa': 'Direct WhatsApp',
+                'contact-email': 'Email Address',
+                'footer-rights': '© 2026 Viora Digital. All rights reserved - Building Digital Solutions.'
+            }
+        };
 
+        let currentLang = 'ar';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+
+            // Mobile menu toggle
             const mobileBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-
             if (mobileBtn && mobileMenu) {
-                mobileBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
+                mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
             }
+
+            // Theme Switcher (Dark / Light)
+            const themeBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('theme-sun');
+            const moonIcon = document.getElementById('theme-moon');
+
+            themeBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.remove('light');
+                    document.documentElement.classList.add('dark');
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
+                }
+            });
+
+            // Language Switcher (AR / EN)
+            const langBtn = document.getElementById('lang-toggle');
+            const langText = document.getElementById('lang-text');
+
+            langBtn.addEventListener('click', () => {
+                currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                langText.textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+
+                // Change direction and lang attributes
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                document.documentElement.lang = currentLang;
+
+                // Update text content for elements with data-key
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[currentLang] && translations[currentLang][key]) {
+                        el.textContent = translations[currentLang][key];
+                    }
+                });
+            });
         });
     </script>
 </body>
